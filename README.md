@@ -13,8 +13,8 @@ Pakistan ka FREE Design + Shopping App 🇵🇰
 - 📲 WhatsApp Order - Direct Order
 
 ### 🌐 Live Website
-https://tumhara-naam.github.io/nova-design-ai/
 
+https://github.com/nisaraiwork/Nova-Ai-Design.git
 ### 📞 Contact
 WhatsApp: +92 3235052148
 Location: Sheikhupura / Lahore, Pakistan
