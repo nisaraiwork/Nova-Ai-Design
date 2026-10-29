@@ -16,7 +16,7 @@ Pakistan ka FREE Design + Shopping App 🇵🇰
 https://tumhara-naam.github.io/nova-design-ai/
 
 ### 📞 Contact
-WhatsApp: +92 300 1234567
+WhatsApp: +92 3235052148
 Location: Sheikhupura / Lahore, Pakistan
 By: Nisar Studio
 
