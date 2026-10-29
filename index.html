@@ -556,6 +556,39 @@
       font-weight: 700;
     }
 
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.01);
+    }
+
+    .table-panel tbody tr {
+      transition: background 0.18s ease, transform 0.18s ease;
+    }
+
+    .table-panel tbody tr:hover {
+      background: rgba(124, 92, 255, 0.06);
+    }
+
+    .table-panel th.sortable {
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .table-panel th.sortable .sort-indicator {
+      display: inline-block;
+      width: 14px;
+      opacity: 0.7;
+      margin-left: 4px;
+    }
+
+    .table-panel th.sortable.active {
+      color: var(--text);
+    }
+
     .pill {
       display: inline-flex;
       align-items: center;
@@ -582,6 +615,116 @@
       background: rgba(248,113,113,0.12);
       color: #ffb0b0;
       border-color: rgba(248,113,113,0.28);
+    }
+
+    .pill.neutral {
+      background: rgba(148,163,184,0.12);
+      color: #dce5f7;
+      border-color: rgba(148,163,184,0.2);
+    }
+
+    .row-actions {
+      position: relative;
+      text-align: right;
+    }
+
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .action-menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 6px);
+      background: rgba(17, 24, 39, 0.98);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      min-width: 120px;
+      z-index: 20;
+      box-shadow: var(--shadow);
+      display: none;
+    }
+
+    .action-menu.open {
+      display: block;
+    }
+
+    .action-menu button {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      padding: 10px 12px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .action-menu button:hover {
+      background: rgba(124,92,255,0.08);
+    }
+
+    .action-menu button.danger {
+      color: #ffb0b0;
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .chip.active {
+      background: rgba(124,92,255,0.12);
+      color: var(--text);
+      border-color: rgba(124,92,255,0.3);
+    }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 24px 16px;
+      color: var(--muted);
+    }
+
+    .empty-state.visible {
+      display: block;
+    }
+
+    .loading-state {
+      display: none;
+      padding: 18px 12px;
+      color: var(--muted);
+      text-align: center;
+      border-radius: 12px;
+      border: 1px dashed var(--line);
+      margin-top: 8px;
+    }
+
+    .loading-state.visible {
+      display: block;
     }
 
     .showcase {
@@ -1055,42 +1198,30 @@
               <button class="button secondary" style="width:auto; padding:9px 12px;">Export</button>
             </div>
 
-            <table>
-              <thead>
-                <tr>
-                  <th>Customer</th>
-                  <th>Product</th>
-                  <th>Value</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Ayesha Khan</td>
-                  <td>Power Bank</td>
-                  <td>PKR 1,899</td>
-                  <td><span class="pill success">Paid</span></td>
-                </tr>
-                <tr>
-                  <td>Hassan Ali</td>
-                  <td>Smart Watch</td>
-                  <td>PKR 2,499</td>
-                  <td><span class="pill warning">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Zainab Noor</td>
-                  <td>Wedding Card</td>
-                  <td>PKR 999</td>
-                  <td><span class="pill success">Completed</span></td>
-                </tr>
-                <tr>
-                  <td>Usman Raza</td>
-                  <td>Business Card</td>
-                  <td>PKR 850</td>
-                  <td><span class="pill danger">Refund</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="filter-row" id="filterRow">
+              <button class="chip active" data-filter="all">All</button>
+              <button class="chip" data-filter="paid">Active</button>
+              <button class="chip" data-filter="pending">Pending</button>
+              <button class="chip" data-filter="inactive">Inactive</button>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="sortable" data-key="customer">Customer <span class="sort-indicator">↕</span></th>
+                    <th class="sortable" data-key="product">Product <span class="sort-indicator">↕</span></th>
+                    <th class="sortable" data-key="value">Value <span class="sort-indicator">↕</span></th>
+                    <th class="sortable" data-key="status">Status <span class="sort-indicator">↕</span></th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="orderTableBody"></tbody>
+              </table>
+            </div>
+
+            <div class="empty-state" id="emptyState">No rows match the selected filter.</div>
+            <div class="loading-state" id="loadingState">Loading orders...</div>
           </div>
 
           <div class="card chart-panel">
@@ -1195,6 +1326,146 @@
         head.lastElementChild.textContent = target.classList.contains('open') ? '▴' : '▾';
       });
     });
+
+    const orders = [
+      { id: 1, customer: 'Ayesha Khan', product: 'Power Bank', value: 1899, status: 'paid' },
+      { id: 2, customer: 'Hassan Ali', product: 'Smart Watch', value: 2499, status: 'pending' },
+      { id: 3, customer: 'Zainab Noor', product: 'Wedding Card', value: 999, status: 'paid' },
+      { id: 4, customer: 'Usman Raza', product: 'Business Card', value: 850, status: 'inactive' },
+      { id: 5, customer: 'Maryam Iqbal', product: 'Earbuds Pro', value: 1499, status: 'paid' },
+      { id: 6, customer: 'Ali Imran', product: 'Fast Charger', value: 999, status: 'pending' }
+    ];
+
+    const state = {
+      filter: 'all',
+      sortKey: 'value',
+      sortDir: 'desc'
+    };
+
+    const tableBody = document.getElementById('orderTableBody');
+    const emptyState = document.getElementById('emptyState');
+    const loadingState = document.getElementById('loadingState');
+
+    function getStatusLabel(status) {
+      const configs = {
+        paid: { label: 'Active', className: 'success' },
+        pending: { label: 'Pending', className: 'warning' },
+        inactive: { label: 'Inactive', className: 'neutral' },
+        refund: { label: 'Refund', className: 'danger' }
+      };
+      return configs[status] || { label: 'Active', className: 'success' };
+    }
+
+    const getFilteredOrders = () => {
+      let filtered = [...orders];
+      if (state.filter !== 'all') {
+        filtered = filtered.filter(order => order.status === state.filter);
+      }
+      filtered.sort((a, b) => {
+        const direction = state.sortDir === 'asc' ? 1 : -1;
+        if (typeof a[state.sortKey] === 'string') {
+          return a[state.sortKey].localeCompare(b[state.sortKey]) * direction;
+        }
+        return (a[state.sortKey] - b[state.sortKey]) * direction;
+      });
+      return filtered;
+    };
+
+    const renderTable = () => {
+      loadingState.classList.add('visible');
+      setTimeout(() => {
+        loadingState.classList.remove('visible');
+
+        const data = getFilteredOrders();
+        if (!data.length) {
+          tableBody.innerHTML = '';
+          emptyState.classList.add('visible');
+          return;
+        }
+
+        emptyState.classList.remove('visible');
+        tableBody.innerHTML = data.map((order) => {
+          const statusMeta = getStatusLabel(order.status);
+          return `
+            <tr>
+              <td>${order.customer}</td>
+              <td>${order.product}</td>
+              <td>PKR ${order.value.toLocaleString()}</td>
+              <td><span class="pill ${statusMeta.className}">${statusMeta.label}</span></td>
+              <td class="row-actions">
+                <button class="action-btn" aria-label="Open actions" data-action-menu="${order.id}">⋮</button>
+                <div class="action-menu" id="menu-${order.id}">
+                  <button type="button">View</button>
+                  <button type="button">Edit</button>
+                  <button type="button" class="danger" data-delete="${order.id}">Delete</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        document.querySelectorAll('.action-btn').forEach((button) => {
+          button.addEventListener('click', (event) => {
+            event.stopPropagation();
+            const id = button.dataset.actionMenu;
+            const menu = document.getElementById(`menu-${id}`);
+            document.querySelectorAll('.action-menu').forEach((item) => {
+              if (item !== menu) item.classList.remove('open');
+            });
+            menu.classList.toggle('open');
+          });
+        });
+
+        document.querySelectorAll('[data-delete]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const id = Number(button.dataset.delete);
+            const confirmDelete = window.confirm('Delete this order?');
+            if (!confirmDelete) return;
+            const index = orders.findIndex(item => item.id === id);
+            if (index >= 0) orders.splice(index, 1);
+            renderTable();
+          });
+        });
+      }, 300);
+    };
+
+    document.querySelectorAll('.chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.chip').forEach((node) => node.classList.remove('active'));
+        chip.classList.add('active');
+        state.filter = chip.dataset.filter;
+        renderTable();
+      });
+    });
+
+    document.querySelectorAll('.sortable').forEach((header) => {
+      header.addEventListener('click', () => {
+        const key = header.dataset.key;
+        const direction = state.sortKey === key && state.sortDir === 'asc' ? 'desc' : 'asc';
+        state.sortKey = key;
+        state.sortDir = direction;
+
+        document.querySelectorAll('.sortable').forEach((node) => {
+          node.classList.remove('active');
+          const indicator = node.querySelector('.sort-indicator');
+          if (indicator) indicator.textContent = '↕';
+        });
+
+        header.classList.add('active');
+        const indicator = header.querySelector('.sort-indicator');
+        if (indicator) indicator.textContent = direction === 'asc' ? '↑' : '↓';
+
+        renderTable();
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.action-btn')) {
+        document.querySelectorAll('.action-menu').forEach((menu) => menu.classList.remove('open'));
+      }
+    });
+
+    renderTable();
   </script>
 </body>
 </html>
