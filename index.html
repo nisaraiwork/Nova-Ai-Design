@@ -55,6 +55,8 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      position: relative;
     }
 
     .brand {
@@ -195,6 +197,18 @@
       justify-content: space-between;
       gap: 18px;
       box-shadow: var(--shadow);
+    }
+
+    .mobile-menu {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
     }
 
     .search {
@@ -599,6 +613,94 @@
       cursor: pointer;
     }
 
+    .showcase {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+    }
+
+    .template-gallery, .product-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .showcase-card {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .showcase-thumb {
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .showcase-thumb::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.1), rgba(15, 23, 42, 0.6));
+    }
+
+    .showcase-body {
+      padding: 14px 14px 16px;
+      position: relative;
+    }
+
+    .showcase-tag {
+      position: absolute;
+      right: 12px;
+      top: -12px;
+      background: rgba(124, 92, 255, 0.18);
+      border: 1px solid rgba(124, 92, 255, 0.3);
+      color: #d7d0ff;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .showcase-body h4 {
+      margin: 0 0 7px;
+      font-size: 1rem;
+    }
+
+    .showcase-body p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .showcase-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .price {
+      font-weight: 700;
+      color: #9ffccc;
+      font-size: 1rem;
+    }
+
+    .mini-btn {
+      border: 1px solid rgba(124, 92, 255, 0.3);
+      background: rgba(124, 92, 255, 0.12);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
     @media (max-width: 1100px) {
       .app {
         grid-template-columns: 1fr;
@@ -616,12 +718,47 @@
 
       .stats,
       .grid-layout,
-      .bottom-grid {
+      .bottom-grid,
+      .showcase,
+      .product-gallery,
+      .template-gallery {
         grid-template-columns: 1fr;
       }
 
       .topbar {
         flex-wrap: wrap;
+      }
+
+      .search {
+        order: 2;
+        width: 100%;
+      }
+
+      .logo-wrap {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: inline-grid;
+        place-items: center;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        z-index: 100;
+        transform: translateY(-120%);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .sidebar.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
       }
 
       .quick-actions {
@@ -632,7 +769,7 @@
 </head>
 <body>
   <div class="app">
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <div>
         <div class="brand">
           <div class="brand-mark">N</div>
@@ -692,6 +829,8 @@
 
     <main class="main">
       <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle menu">☰</button>
+
         <div class="search">
           <span>🔎</span>
           <input type="text" value="Search templates, invoices, products..." aria-label="Search" />
@@ -818,6 +957,78 @@
         </div>
       </section>
 
+      <section class="showcase">
+        <div class="card chart-panel">
+          <div class="panel-head">
+            <h3>Top Templates</h3>
+            <button class="button secondary" style="width:auto; padding:9px 12px;">View all</button>
+          </div>
+
+          <div class="template-gallery">
+            <article class="showcase-card">
+              <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80');"></div>
+              <div class="showcase-body">
+                <span class="showcase-tag">Top Rated</span>
+                <h4>Eid Sale Flyer</h4>
+                <p>Premium promotional template optimized for social ads and product pages.</p>
+                <div class="showcase-footer">
+                  <span class="price">93%</span>
+                  <button class="mini-btn">Use</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="showcase-card">
+              <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80');"></div>
+              <div class="showcase-body">
+                <span class="showcase-tag">New</span>
+                <h4>Wedding Card</h4>
+                <p>Elegant invitation design with luxury wedding styling and Urdu support.</p>
+                <div class="showcase-footer">
+                  <span class="price">89%</span>
+                  <button class="mini-btn">Use</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="card chart-panel">
+          <div class="panel-head">
+            <h3>Best Sellers</h3>
+            <button class="button secondary" style="width:auto; padding:9px 12px;">Explore</button>
+          </div>
+
+          <div class="product-gallery">
+            <article class="showcase-card">
+              <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=900&q=80');"></div>
+              <div class="showcase-body">
+                <span class="showcase-tag">Fast Move</span>
+                <h4>Power Bank</h4>
+                <p>10000mAh wireless device with fast charge and compact body.</p>
+                <div class="showcase-footer">
+                  <span class="price">PKR 1,899</span>
+                  <button class="mini-btn">Order</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="showcase-card">
+              <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=900&q=80');"></div>
+              <div class="showcase-body">
+                <span class="showcase-tag">Popular</span>
+                <h4>Smart Watch</h4>
+                <p>Fitness tracking, notifications, and premium design for daily use.</p>
+                <div class="showcase-footer">
+                  <span class="price">PKR 2,499</span>
+                  <button class="mini-btn">Order</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="bottom-grid">
         <div class="card table-panel chart-panel">
           <div class="panel-head">
@@ -906,5 +1117,23 @@
       </section>
     </main>
   </div>
+
+  <script>
+    const mobileMenu = document.getElementById('mobileMenu');
+    const sidebar = document.getElementById('sidebar');
+
+    if (mobileMenu && sidebar) {
+      mobileMenu.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+      });
+
+      document.addEventListener('click', (event) => {
+        const isInside = sidebar.contains(event.target) || mobileMenu.contains(event.target);
+        if (window.innerWidth <= 760 && !isInside) {
+          sidebar.classList.remove('open');
+        }
+      });
+    }
+  </script>
 </body>
 </html>
