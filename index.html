@@ -1,190 +1,910 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nova Design AI - by Nisar Studio</title>
-<link rel="icon" href="icon.png">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:#0f0f1e;color:#fff;padding-bottom:90px}
-header{background:linear-gradient(90deg,#00c853,#7b2ff7);padding:15px;text-align:center;position:sticky;top:0;z-index:99}
-header h1{font-size:22px} header p{font-size:12px;opacity:.9}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding:12px}
-.tab{background:#2a2a45;padding:8px 16px;border-radius:20px;white-space:nowrap;cursor:pointer;border:1px solid #444;color:#fff}
-.tab.active{background:#7b2ff7}
-.section{padding:0 12px;display:none}.section.active{display:block}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
-.card{background:#1e1e35;border-radius:16px;overflow:hidden;border:1px solid #333}
-.card img{width:100%;height:130px;object-fit:cover}
-.card .info{padding:10px}.card h3{font-size:14px}.card p{font-size:11px;color:#aaa;margin:4px 0}
-.btn{width:100%;padding:9px;border:none;border-radius:10px;background:linear-gradient(90deg,#00c853,#7b2ff7);color:#fff;font-weight:bold;cursor:pointer}
-.btn-green{background:#25D366}
-input,select,textarea{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:1px solid #444;background:#2a2a45;color:#fff}
-label{font-size:12px;color:#ccc}
-.frame-box{border:4px solid gold;border-radius:20px;padding:10px;text-align:center;background:#222;margin:10px 0}
-.frame-box.eid{border-color:#FFD700;box-shadow:0 0 20px gold}
-.frame-box.wedding{border-color:#ff4d6d}
-.frame-box.product{border-color:#00c853}
-.badge{background:#ff1744;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold;display:inline-block}
-.price{font-size:22px;font-weight:bold;color:#00e676}
-.old{text-decoration:line-through;color:#888;font-size:14px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;display:flex;justify-content:space-around;padding:10px;border-top:1px solid #333}
-.bottom button{background:none;border:none;color:#fff;font-size:12px;cursor:pointer}
-.bottom button.active{color:#00e676}
-.preview{white-space:pre-wrap;background:#fff;color:#111;padding:15px;border-radius:12px;margin-top:10px;font-size:14px}
-.probox{background:#1e1e35;padding:15px;border-radius:16px;margin:15px;border:2px solid gold}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova Design AI Dashboard</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-2: #111827;
+      --panel: #121a2b;
+      --panel-2: #1a2337;
+      --panel-3: #1f2a3d;
+      --line: rgba(148, 163, 184, 0.18);
+      --text: #edf2ff;
+      --muted: #9aa7bd;
+      --primary: #7c5cff;
+      --primary-2: #00d4ff;
+      --success: #22c55e;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --pink: #ff5ec4;
+      --shadow: 0 20px 45px rgba(15, 23, 42, 0.45);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: linear-gradient(180deg, #0b1020 0%, #111827 100%);
+      color: var(--text);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      padding: 20px;
+    }
+
+    .app {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 22px;
+      min-height: calc(100vh - 40px);
+    }
+
+    .sidebar {
+      background: rgba(17, 24, 39, 0.9);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 8px 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 18px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .brand h1 {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .brand p {
+      margin: 0;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: grid;
+      gap: 8px;
+    }
+
+    .nav-item {
+      color: var(--text);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: linear-gradient(90deg, rgba(124,92,255,0.18), rgba(0,212,255,0.1));
+      border-color: rgba(124, 92, 255, 0.35);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      display: grid;
+      place-items: center;
+      font-size: 0.9rem;
+    }
+
+    .nav-badge {
+      background: rgba(34, 197, 94, 0.16);
+      color: #8bf0b1;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      border-radius: 999px;
+      font-size: 0.68rem;
+      padding: 4px 8px;
+    }
+
+    .upgrade-card {
+      margin-top: 22px;
+      padding: 18px 16px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(124,92,255,0.22), rgba(0,212,255,0.12));
+      border: 1px solid rgba(124, 92, 255, 0.4);
+    }
+
+    .upgrade-card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .upgrade-card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.83rem;
+      line-height: 1.5;
+    }
+
+    .button {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: 0.2s ease;
+    }
+
+    .button.primary {
+      background: linear-gradient(90deg, var(--primary), var(--primary-2));
+      color: white;
+    }
+
+    .button.secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .topbar {
+      background: rgba(17, 24, 39, 0.88);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .search {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: var(--muted);
+      gap: 10px;
+    }
+
+    .search input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      width: 100%;
+      font-size: 0.95rem;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .circle-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      display: grid;
+      place-items: center;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #fbbf24, #f97316);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat::after {
+      content: "";
+      position: absolute;
+      right: -12px;
+      top: -12px;
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle, rgba(124,92,255,0.18), transparent 65%);
+      pointer-events: none;
+    }
+
+    .stat-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .tiny-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .stat label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-bottom: 6px;
+    }
+
+    .stat strong {
+      font-size: clamp(1.5rem, 2vw, 2rem);
+      letter-spacing: -0.04em;
+    }
+
+    .trend {
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34,197,94,0.12);
+      color: #8cf0af;
+      border: 1px solid rgba(34,197,94,0.25);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      padding: 6px 8px;
+    }
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 0.9fr;
+      gap: 22px;
+    }
+
+    .chart-panel {
+      padding: 20px;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      gap: 12px;
+    }
+
+    .panel-head h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .segmented {
+      display: inline-flex;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .segmented button {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 7px 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .segmented button.active {
+      background: rgba(124,92,255,0.18);
+      color: var(--text);
+    }
+
+    .chart {
+      height: 270px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 20px;
+      border-bottom: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+
+    .bar-wrap {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      position: relative;
+    }
+
+    .bar {
+      width: 100%;
+      max-width: 40px;
+      background: linear-gradient(180deg, var(--primary-2), var(--primary));
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0 18px 28px rgba(124,92,255,0.25);
+      position: relative;
+    }
+
+    .bar:nth-child(odd) {
+      background: linear-gradient(180deg, #ffb86d, #ff7a59);
+    }
+
+    .bar-labels {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 14px 0;
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+
+    .side-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 210px;
+    }
+
+    .donut {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      position: relative;
+      background: conic-gradient(var(--primary) 0 68%, rgba(255,255,255,0.05) 68% 100%);
+      display: grid;
+      place-items: center;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+    }
+
+    .donut::before {
+      content: "";
+      width: 86px;
+      height: 86px;
+      background: var(--panel-2);
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .donut-value {
+      position: relative;
+      z-index: 1;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .legend {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .legend-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .legend-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 22px;
+    }
+
+    .table-panel table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    .table-panel th,
+    .table-panel td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px 10px;
+      text-align: left;
+    }
+
+    .table-panel th {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.74rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .pill.success {
+      background: rgba(34,197,94,0.12);
+      color: #90f7b3;
+      border: 1px solid rgba(34,197,94,0.25);
+    }
+
+    .pill.warning {
+      background: rgba(251,191,36,0.12);
+      color: #ffd96a;
+      border: 1px solid rgba(251,191,36,0.25);
+    }
+
+    .pill.danger {
+      background: rgba(248,113,113,0.12);
+      color: #ffb0b0;
+      border: 1px solid rgba(248,113,113,0.25);
+    }
+
+    .template-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .template-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .template-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mini-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(124,92,255,0.22), rgba(0,212,255,0.2));
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+    }
+
+    .template-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .template-sub {
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+
+    .template-score {
+      font-weight: 700;
+      color: #a8ffcc;
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .mini-action {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+      color: var(--text);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1100px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        padding-bottom: 12px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      body {
+        padding: 12px;
+      }
+
+      .stats,
+      .grid-layout,
+      .bottom-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-wrap: wrap;
+      }
+
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="app">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-mark">N</div>
+          <div>
+            <h1>Nova Design AI</h1>
+            <p>by Nisar Studio</p>
+          </div>
+        </div>
 
-<header><h1>✨ Nova Design AI</h1><p>Nova Mart • by Nisar Studio • Lahore, Pakistan</p></header>
+        <nav class="nav">
+          <div class="nav-item active">
+            <div class="nav-left">
+              <div class="nav-icon">🏠</div>
+              Overview
+            </div>
+            <span class="nav-badge">Live</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-left">
+              <div class="nav-icon">🎨</div>
+              Templates
+            </div>
+          </div>
+          <div class="nav-item">
+            <div class="nav-left">
+              <div class="nav-icon">🖼️</div>
+              Frame Studio
+            </div>
+          </div>
+          <div class="nav-item">
+            <div class="nav-left">
+              <div class="nav-icon">🧾</div>
+              Invoices
+            </div>
+          </div>
+          <div class="nav-item">
+            <div class="nav-left">
+              <div class="nav-icon">🛒</div>
+              Nova Mart
+            </div>
+          </div>
+          <div class="nav-item">
+            <div class="nav-left">
+              <div class="nav-icon">📈</div>
+              Analytics
+            </div>
+          </div>
+        </nav>
+      </div>
 
-<div class="tabs">
-<button class="tab active" onclick="show('home',this)">🏠 Home</button>
-<button class="tab" onclick="show('templates',this)">🎨 100 Templates</button>
-<button class="tab" onclick="show('frame',this)">🖼️ Frame Maker</button>
-<button class="tab" onclick="show('invoice',this)">🧾 Invoice</button>
-<button class="tab" onclick="show('mart',this)">🛍️ Nova Mart</button>
-<button class="tab" onclick="show('pro',this)">👑 PRO</button>
-</div>
+      <div class="upgrade-card">
+        <h3>PRO Subscription</h3>
+        <p>Unlock premium templates, no watermark, and all frame packs.</p>
+        <button class="button primary">Upgrade to PRO</button>
+      </div>
+    </aside>
 
-<!-- HOME -->
-<div id="home" class="section active">
-<h2>🔥 Top 10 Templates</h2>
-<div class="grid" id="top10"></div>
-<h2 style="margin-top:15px">📐 Layout Catalog</h2>
-<div class="grid">
-<div class="card"><div class="info"><h3>1x1 Square</h3><p>Instagram / FB Post</p><button class="btn" onclick="alert('1x1 Selected')">Use</button></div></div>
-<div class="card"><div class="info"><h3>9:16 Story</h3><p>Reels / TikTok / Status</p><button class="btn" onclick="alert('9:16 Selected')">Use</button></div></div>
-<div class="card"><div class="info"><h3>16:9 Landscape</h3><p>YouTube Thumbnail</p><button class="btn" onclick="alert('16:9 Selected')">Use</button></div></div>
-<div class="card"><div class="info"><h3>A4 Print</h3><p>CV / Poster / Card</p><button class="btn" onclick="alert('A4 Selected')">Use</button></div></div>
-</div>
-</div>
+    <main class="main">
+      <header class="topbar">
+        <div class="search">
+          <span>🔎</span>
+          <input type="text" value="Search templates, invoices, products..." aria-label="Search" />
+        </div>
 
-<!-- 100 TEMPLATES -->
-<div id="templates" class="section">
-<h2>🎨 100 Templates - Catalog</h2>
-<input id="search" placeholder="🔍 Search template... Eid, CV, Wedding..." oninput="filterTpl()">
-<div class="grid" id="allTpl"></div>
-</div>
+        <div class="top-actions">
+          <div class="circle-btn">🔔</div>
+          <div class="circle-btn">⚙️</div>
+          <div class="avatar">NS</div>
+        </div>
+      </header>
 
-<!-- FRAME MAKER -->
-<div id="frame" class="section">
-<h2>🖼️ Frame Maker</h2>
-<label>Apni Photo Chuno</label><input type="file" accept="image/*" onchange="loadPhoto(event)">
-<label>Frame Chuno</label>
-<select id="frameType" onchange="changeFrame()">
-<option value="eid">🌙 Eid Frame - Gold</option>
-<option value="wedding">💍 Wedding Frame - Pink</option>
-<option value="product">🛍️ Nova Mart Product Frame</option>
-<option value="circle">⭕ Circle Frame</option>
-</select>
-<label>Text Likho</label><input id="frameText" value="Eid Mubarak" oninput="updateFrame()">
-<div id="framePreview" class="frame-box eid">
-<img id="userPhoto" src="https://via.placeholder.com/300x300?text=Apni+Photo+Lagao" style="width:100%;border-radius:12px">
-<h2 id="frameTextShow" style="color:gold;margin-top:8px">Eid Mubarak</h2>
-<p>Nova Design AI • Nisar Studio</p>
-</div>
-<label>Frame Color</label><input type="color" value="#FFD700" onchange="document.getElementById('framePreview').style.borderColor=this.value">
-<button class="btn btn-green" onclick="alert('Saved! WhatsApp pe share karo')">⬇️ Save & Share WhatsApp</button>
-</div>
+      <section class="stats">
+        <div class="card stat">
+          <div class="stat-top">
+            <div>
+              <label>Total Sales</label>
+              <strong>PKR 1.28M</strong>
+            </div>
+            <div class="tiny-badge">💰</div>
+          </div>
+          <div class="trend">▲ 18.4% this month</div>
+        </div>
 
-<!-- INVOICE -->
-<div id="invoice" class="section">
-<h2>🧾 Digital Invoice - Add Page</h2>
-<label>Customer Name</label><input id="cName" placeholder="Ayesha Khan" value="Ayesha Khan">
-<label>Phone Number</label><input id="cPhone" placeholder="+92 300 1234567" value="+92 300 1234567">
-<label>Address</label><input id="cAddr" placeholder="Gulberg, Lahore" value="Gulberg, Lahore">
-<label>Product Name</label><input id="pName" value="10000mAh Power Bank">
-<label>Quantity</label><input type="number" id="qty" value="1" oninput="calc()">
-<label>Price (PKR)</label><input type="number" id="price" value="1899" oninput="calc()">
-<label>Discount (PKR)</label><input type="number" id="disc" value="0" oninput="calc()">
-<label>Payment Method</label>
-<select id="pay"><option>Cash on Delivery</option><option>JazzCash</option><option>Easypaisa</option><option>Bank Transfer</option></select>
-<h3>Total: <span id="total" style="color:#00e676">PKR 1,899</span></h3>
-<button class="btn" onclick="makeInvoice()">🧾 Invoice Banao</button>
-<button class="btn btn-green" style="margin-top:8px" onclick="sendWA()">📲 WhatsApp pe Bhejo</button>
-<div id="invPreview" class="preview" style="display:none"></div>
-</div>
+        <div class="card stat">
+          <div class="stat-top">
+            <div>
+              <label>Templates Used</label>
+              <strong>12,480</strong>
+            </div>
+            <div class="tiny-badge">🎨</div>
+          </div>
+          <div class="trend">▲ 9.6% weekly</div>
+        </div>
 
-<!-- NOVA MART -->
-<div id="mart" class="section">
-<h2>🛍️ Nova Mart Products</h2>
-<div class="grid" id="martGrid"></div>
-</div>
+        <div class="card stat">
+          <div class="stat-top">
+            <div>
+              <label>Orders</label>
+              <strong>1,982</strong>
+            </div>
+            <div class="tiny-badge">🛒</div>
+          </div>
+          <div class="trend">▲ 12.1% growth</div>
+        </div>
 
-<!-- PRO -->
-<div id="pro" class="section">
-<div class="probox">
-<h2>👑 Nova Design AI - PRO</h2>
-<p style="font-size:13px;color:#ccc;margin:6px 0">100+ Premium Templates • No Watermark • All Frames Unlocked</p>
-<h3>PKR 499 / Month - PKR 999 / Year</h3><br>
-<button class="btn" style="background:#ff0000;margin-bottom:8px" onclick="payPro('JazzCash')">📱 JazzCash se Pay Karo</button>
-<button class="btn" style="background:#00a651" onclick="payPro('Easypaisa')">💚 Easypaisa se Pay Karo</button>
-<p style="font-size:11px;text-align:center;margin-top:8px">Pay ke baad screenshot WhatsApp pe bhejo, Pro ON ho jayega</p>
-</div>
-</div>
+        <div class="card stat">
+          <div class="stat-top">
+            <div>
+              <label>Conversion</label>
+              <strong>6.8%</strong>
+            </div>
+            <div class="tiny-badge">📈</div>
+          </div>
+          <div class="trend">▼ 1.1% last week</div>
+        </div>
+      </section>
 
-<div class="bottom">
-<button class="active" onclick="show('home',this)">🏠 Home</button>
-<button onclick="show('templates',this)">🎨 Templates</button>
-<button onclick="show('frame',this)">🖼️ Frame</button>
-<button onclick="show('invoice',this)">🧾 Invoice</button>
-<button onclick="show('mart',this)">🛍️ Mart</button>
-</div>
+      <section class="grid-layout">
+        <div class="card chart-panel">
+          <div class="panel-head">
+            <h3>Performance Overview</h3>
+            <div class="segmented">
+              <button class="active">7D</button>
+              <button>30D</button>
+              <button>90D</button>
+            </div>
+          </div>
 
-<script>
-const templates=[
-"Eid Mubarak - Gold Green","Eid Sale 50% OFF","YouTube Thumbnail - MY VLOG","CV Resume - Modern","Wedding Card - Urdu Shadi Card","Nova Mart - Product Ad","Business Visiting Card","Ramzan Offer 40% OFF","Instagram Story - Sale Alert","Facebook Post - Shop Opening","Facebook Cover - Business","TikTok Thumbnail - Viral","YouTube Banner - Channel Art","WhatsApp Status - Eid Offer","WhatsApp DP - Islamic","Reels Cover - Trending","Story Highlight Cover","Live Sale Announcement","Giveaway Post","Follow Us Post","Thank You Followers","New Video Alert","Viral Meme Template","Shop Banner - Grand Opening","Visiting Card - Urdu","Visiting Card - English","Sale Poster - 50% OFF","Discount Poster - Buy 1 Get 1","New Arrival Poster","Cash on Delivery Poster","Menu Card - Restaurant","Invoice - Simple","Quote Poster - Success","Quote Poster - Motivation","Brand Logo - Minimal","Brand Logo - Luxury","Packaging Label","Sticker - Price Tag","Eid Mubarak - Urdu Calligraphy","Ramzan Offer - Grocery","Ramzan Calendar","Jumma Mubarak Post","Pakistan Zindabad Poster","Mehndi Card - Yellow","Barat Invitation","Walima Card - Luxury","Nikkah Announcement","Birthday Card - Bacho","Dua Post - Umrah Mubarak","Hajj Mubarak Card","New Baby - Mubarak Ho","Result Mubarak - Pass","Teachers Day Post","Nova Mart - Smart Watch Sale","Nova Mart - Earbuds Offer","Nova Mart - Power Bank Ad","Nova Mart - Winter Collection","Nova Mart - Summer Sale","Nova Mart - Free Delivery","Nova Mart - Order on WhatsApp","Nova Mart - Customer Feedback","Nova Mart - Stock Clearance","Nova Mart - Limited Time Deal","Nova Mart - 11.11 Sale","Nova Mart - New Shop Banner","Nova Mart - Price Drop","Nova Mart - Thank You Order","CV Resume - Simple Urdu","School Assignment Cover","Presentation - Business","Presentation - Student","ID Card - School","ID Card - Office","Flyer - Tuition Classes","Flyer - Academy Admission","Exam Tips Post","Motivational Quote - Urdu","Motivational Quote - English","Video Intro - YouTube","Video Cover - Podcast","Reels Template - Shop Promo","TikTok Video - Before After","Thumbnail - Gaming","Eid Frame - Golden","Wedding Frame - Pink","Product Frame - Green"
-];
-const imgs=["https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400","https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=400","https://images.unsplash.com/photo-1611162617213-7d5b0d3a7d0d?w=400","https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400","https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400","https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=400","https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400","https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400","https://images.unsplash.com/photo-1521790797524-b2497295b8a0?w=400","https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400"];
-function renderTpl(list,el){
- document.getElementById(el).innerHTML=list.map((t,i)=>`<div class="card"><img src="${imgs[i%imgs.length]}"><div class="info"><h3>${t}</h3><p>Nova Design AI • Free / Pro</p><button class="btn" onclick="useTpl('${t.replace(/'/g,"\\'")}' )">Use</button></div></div>`).join('');
-}
-renderTpl(templates.slice(0,10),'top10');
-renderTpl(templates,'allTpl');
-function filterTpl(){let q=document.getElementById('search').value.toLowerCase();renderTpl(templates.filter(t=>t.toLowerCase().includes(q)),'allTpl')}
-function useTpl(t){show('frame',null);document.getElementById('frameText').value=t;updateFrame();alert(t+" khul gaya!")}
-function show(id,btn){
- document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
- if(btn) btn.classList.add('active');
- window.scrollTo(0,0);
-}
-function loadPhoto(e){let r=new FileReader();r.onload=()=>document.getElementById('userPhoto').src=r.result;r.readAsDataURL(e.target.files[0])}
-function changeFrame(){let f=document.getElementById('frameType').value;let p=document.getElementById('framePreview');p.className='frame-box '+f}
-function updateFrame(){document.getElementById('frameTextShow').innerText=document.getElementById('frameText').value}
-function calc(){
- let q=+document.getElementById('qty').value||1;
- let pr=+document.getElementById('price').value||0;
- let d=+document.getElementById('disc').value||0;
- let tot=q*pr-d;
- document.getElementById('total').innerText='PKR '+tot.toLocaleString();
- return tot;
-}
-function makeInvoice(){
- let tot=calc();
- let txt=`NOVA MART - by Nisar Studio\nInvoice #001\n----------------\nCustomer: ${document.getElementById('cName').value}\nPhone: ${document.getElementById('cPhone').value}\nAddress: ${document.getElementById('cAddr').value}\nProduct: ${document.getElementById('pName').value}\nQty: ${document.getElementById('qty').value}\nPrice: PKR ${Number(document.getElementById('price').value).toLocaleString()}\nDiscount: PKR ${Number(document.getElementById('disc').value).toLocaleString()}\nTotal: PKR ${tot.toLocaleString()}\nPayment: ${document.getElementById('pay').value}`;
- let p=document.getElementById('invPreview');p.style.display='block';p.innerText=txt;
-}
-function sendWA(){makeInvoice();let msg=encodeURIComponent(document.getElementById('invPreview').innerText);window.open('https://wa.me/923001234567?text='+msg)}
-function payPro(method){
-  let num = prompt(method + " Number Likho (03235052148):");
-  if(!num) return;
-  alert(method + " pe PKR 499 bhejo:\n\nNumber: 03235052148\nName: Nisar Studio\n\nPhir screenshot WhatsApp pe bhejo!");
-  window.open('https://wa.me/923235052148?text='+encodeURIComponent('Mujhe PRO chahiye - '+method+' - Mera Number: '+num+' - Payment Screenshot bhej raha hun'));
-}
-const products=[
-{name:"10000mAh Power Bank",price:1899,old:3150,off:"40% OFF",img:"https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400"},
-{name:"Smart Watch",price:2499,old:3999,off:"30% OFF",img:"https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400"},
-{name:"Earbuds Pro",price:1499,old:2499,off:"40% OFF",img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
-{name:"Fast Charger 25W",price:999,old:1499,off:"33% OFF",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400"},
-{name:"LED Lamp",price:1299,old:1999,off:"35% OFF",img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400"},
-{name:"Bluetooth Speaker",price:2999,old:4999,off:"40% OFF",img:"https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400"}
-];
-document.getElementById('martGrid').innerHTML=products.map(p=>`<div class="card"><img src="${p.img}"><div class="info"><span class="badge">${p.off}</span><h3 style="margin-top:6px">${p.name}</h3><p>Original Price <span class="old">PKR ${p.old.toLocaleString()}</span></p><div style="display:flex;justify-content:space-between;align-items:center"><span class="price">PKR ${p.price.toLocaleString()}</span><button class="btn" onclick="alert('${p.name} selected')" style="width:auto;padding:8px 14px">Order</button></div></div></div>`).join('');
-</script>
+          <div class="chart" aria-label="Performance chart">
+            <div class="bar-wrap"><div class="bar" style="height: 32%"></div></div>
+            <div class="bar-wrap"><div class="bar" style="height: 42%"></div></div>
+            <div class="bar-wrap"><div class="bar" style="height: 58%"></div></div>
+            <div class="bar-wrap"><div class="bar" style="height: 49%"></div></div>
+            <div class="bar-wrap"><div class="bar" style="height: 66%"></div></div>
+            <div class="bar-wrap"><div class="bar" style="height: 76%"></div></div>
+            <div class="bar-wrap"><div class="bar" style="height: 84%"></div></div>
+          </div>
+
+          <div class="bar-labels">
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+            <span>Sun</span>
+          </div>
+        </div>
+
+        <div class="side-panel">
+          <div class="card chart-panel">
+            <div class="panel-head">
+              <h3>Goal Progress</h3>
+            </div>
+
+            <div class="donut-wrap">
+              <div class="donut"><span class="donut-value">68%</span></div>
+            </div>
+
+            <div class="legend">
+              <div class="legend-row">
+                <div class="legend-name"><span class="dot" style="background: var(--primary);"></span>Achieved</div>
+                <strong>68%</strong>
+              </div>
+              <div class="legend-row">
+                <div class="legend-name"><span class="dot" style="background: rgba(255,255,255,0.08);"></span>Remaining</div>
+                <strong>32%</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="card chart-panel">
+            <div class="panel-head">
+              <h3>Quick Actions</h3>
+            </div>
+            <div class="quick-actions">
+              <div class="mini-action">+ New Design</div>
+              <div class="mini-action">📦 Orders</div>
+              <div class="mini-action">📄 Invoice</div>
+              <div class="mini-action">🧩 Frame</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bottom-grid">
+        <div class="card table-panel chart-panel">
+          <div class="panel-head">
+            <h3>Recent Orders</h3>
+            <button class="button secondary" style="width:auto; padding:9px 12px;">Export</button>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Value</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ayesha Khan</td>
+                <td>Power Bank</td>
+                <td>PKR 1,899</td>
+                <td><span class="pill success">Paid</span></td>
+              </tr>
+              <tr>
+                <td>Hassan Ali</td>
+                <td>Smart Watch</td>
+                <td>PKR 2,499</td>
+                <td><span class="pill warning">Pending</span></td>
+              </tr>
+              <tr>
+                <td>Zainab Noor</td>
+                <td>Wedding Card</td>
+                <td>PKR 999</td>
+                <td><span class="pill success">Completed</span></td>
+              </tr>
+              <tr>
+                <td>Usman Raza</td>
+                <td>Business Card</td>
+                <td>PKR 850</td>
+                <td><span class="pill danger">Refund</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card chart-panel">
+          <div class="panel-head">
+            <h3>Top Templates</h3>
+          </div>
+
+          <div class="template-list">
+            <div class="template-item">
+              <div class="template-meta">
+                <div class="mini-thumb">📱</div>
+                <div>
+                  <div class="template-name">Eid Sale Promo</div>
+                  <div class="template-sub">Campaign Design</div>
+                </div>
+              </div>
+              <div class="template-score">93%</div>
+            </div>
+
+            <div class="template-item">
+              <div class="template-meta">
+                <div class="mini-thumb">💍</div>
+                <div>
+                  <div class="template-name">Wedding Card</div>
+                  <div class="template-sub">Premium Layout</div>
+                </div>
+              </div>
+              <div class="template-score">89%</div>
+            </div>
+
+            <div class="template-item">
+              <div class="template-meta">
+                <div class="mini-thumb">🛍️</div>
+                <div>
+                  <div class="template-name">Nova Mart Ad</div>
+                  <div class="template-sub">Store Promo</div>
+                </div>
+              </div>
+              <div class="template-score">86%</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 </body>
 </html>
