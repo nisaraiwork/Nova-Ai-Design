@@ -55,6 +55,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: transform 0.25s ease, opacity 0.25s ease;
     }
 
     .brand {
@@ -719,6 +720,33 @@
       color: #a8ffcc;
     }
 
+    .collapsible {
+      border-top: 1px solid var(--line);
+      margin-top: 18px;
+      padding-top: 14px;
+    }
+
+    .collapse-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      padding: 6px 0;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .collapse-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+
+    .collapse-body.open {
+      max-height: 260px;
+    }
+
     @media (max-width: 1100px) {
       .app {
         grid-template-columns: 1fr;
@@ -1104,6 +1132,37 @@
                 <div class="template-score">86%</div>
               </div>
             </div>
+
+            <div class="collapsible">
+              <div class="collapse-head" data-target="metricsPanel">
+                <span>Quick Insights</span>
+                <span>▾</span>
+              </div>
+              <div class="collapse-body" id="metricsPanel">
+                <div class="template-list" style="margin-top:12px;">
+                  <div class="template-item">
+                    <div class="template-meta">
+                      <div class="mini-thumb">📦</div>
+                      <div>
+                        <div class="template-name">Repeat Buyers</div>
+                        <div class="template-sub">+17.8% this month</div>
+                      </div>
+                    </div>
+                    <div class="template-score">71%</div>
+                  </div>
+                  <div class="template-item">
+                    <div class="template-meta">
+                      <div class="mini-thumb">📧</div>
+                      <div>
+                        <div class="template-name">Email CTR</div>
+                        <div class="template-sub">Campaign performance</div>
+                      </div>
+                    </div>
+                    <div class="template-score">5.8%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -1126,6 +1185,16 @@
         }
       });
     }
+
+    document.querySelectorAll('.collapse-head').forEach((head) => {
+      head.addEventListener('click', () => {
+        const targetId = head.dataset.target;
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        target.classList.toggle('open');
+        head.lastElementChild.textContent = target.classList.contains('open') ? '▴' : '▾';
+      });
+    });
   </script>
 </body>
 </html>
