@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Design AI - by Nisar Studio</title>
+<link rel="icon" href="icon.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#0f0f1e;color:#fff;padding-bottom:90px}
+header{background:linear-gradient(90deg,#00c853,#7b2ff7);padding:15px;text-align:center;position:sticky;top:0;z-index:99}
+header h1{font-size:22px} header p{font-size:12px;opacity:.9}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:12px}
+.tab{background:#2a2a45;padding:8px 16px;border-radius:20px;white-space:nowrap;cursor:pointer;border:1px solid #444;color:#fff}
+.tab.active{background:#7b2ff7}
+.section{padding:0 12px;display:none}.section.active{display:block}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.card{background:#1e1e35;border-radius:16px;overflow:hidden;border:1px solid #333}
+.card img{width:100%;height:130px;object-fit:cover}
+.card .info{padding:10px}.card h3{font-size:14px}.card p{font-size:11px;color:#aaa;margin:4px 0}
+.btn{width:100%;padding:9px;border:none;border-radius:10px;background:linear-gradient(90deg,#00c853,#7b2ff7);color:#fff;font-weight:bold;cursor:pointer}
+.btn-green{background:#25D366}
+input,select,textarea{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:1px solid #444;background:#2a2a45;color:#fff}
+label{font-size:12px;color:#ccc}
+.frame-box{border:4px solid gold;border-radius:20px;padding:10px;text-align:center;background:#222;margin:10px 0}
+.frame-box.eid{border-color:#FFD700;box-shadow:0 0 20px gold}
+.frame-box.wedding{border-color:#ff4d6d}
+.frame-box.product{border-color:#00c853}
+.badge{background:#ff1744;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold;display:inline-block}
+.price{font-size:22px;font-weight:bold;color:#00e676}
+.old{text-decoration:line-through;color:#888;font-size:14px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;display:flex;justify-content:space-around;padding:10px;border-top:1px solid #333}
+.bottom button{background:none;border:none;color:#fff;font-size:12px;cursor:pointer}
+.bottom button.active{color:#00e676}
+.preview{white-space:pre-wrap;background:#fff;color:#111;padding:15px;border-radius:12px;margin-top:10px;font-size:14px}
+.probox{background:#1e1e35;padding:15px;border-radius:16px;margin:15px;border:2px solid gold}
+</style>
+</head>
+<body>
+
+<header><h1>✨ Nova Design AI</h1><p>Nova Mart • by Nisar Studio • Lahore, Pakistan</p></header>
+
+<div class="tabs">
+<button class="tab active" onclick="show('home',this)">🏠 Home</button>
+<button class="tab" onclick="show('templates',this)">🎨 100 Templates</button>
+<button class="tab" onclick="show('frame',this)">🖼️ Frame Maker</button>
+<button class="tab" onclick="show('invoice',this)">🧾 Invoice</button>
+<button class="tab" onclick="show('mart',this)">🛍️ Nova Mart</button>
+<button class="tab" onclick="show('pro',this)">👑 PRO</button>
+</div>
+
+<!-- HOME -->
+<div id="home" class="section active">
+<h2>🔥 Top 10 Templates</h2>
+<div class="grid" id="top10"></div>
+<h2 style="margin-top:15px">📐 Layout Catalog</h2>
+<div class="grid">
+<div class="card"><div class="info"><h3>1x1 Square</h3><p>Instagram / FB Post</p><button class="btn" onclick="alert('1x1 Selected')">Use</button></div></div>
+<div class="card"><div class="info"><h3>9:16 Story</h3><p>Reels / TikTok / Status</p><button class="btn" onclick="alert('9:16 Selected')">Use</button></div></div>
+<div class="card"><div class="info"><h3>16:9 Landscape</h3><p>YouTube Thumbnail</p><button class="btn" onclick="alert('16:9 Selected')">Use</button></div></div>
+<div class="card"><div class="info"><h3>A4 Print</h3><p>CV / Poster / Card</p><button class="btn" onclick="alert('A4 Selected')">Use</button></div></div>
+</div>
+</div>
+
+<!-- 100 TEMPLATES -->
+<div id="templates" class="section">
+<h2>🎨 100 Templates - Catalog</h2>
+<input id="search" placeholder="🔍 Search template... Eid, CV, Wedding..." oninput="filterTpl()">
+<div class="grid" id="allTpl"></div>
+</div>
+
+<!-- FRAME MAKER -->
+<div id="frame" class="section">
+<h2>🖼️ Frame Maker</h2>
+<label>Apni Photo Chuno</label><input type="file" accept="image/*" onchange="loadPhoto(event)">
+<label>Frame Chuno</label>
+<select id="frameType" onchange="changeFrame()">
+<option value="eid">🌙 Eid Frame - Gold</option>
+<option value="wedding">💍 Wedding Frame - Pink</option>
+<option value="product">🛍️ Nova Mart Product Frame</option>
+<option value="circle">⭕ Circle Frame</option>
+</select>
+<label>Text Likho</label><input id="frameText" value="Eid Mubarak" oninput="updateFrame()">
+<div id="framePreview" class="frame-box eid">
+<img id="userPhoto" src="https://via.placeholder.com/300x300?text=Apni+Photo+Lagao" style="width:100%;border-radius:12px">
+<h2 id="frameTextShow" style="color:gold;margin-top:8px">Eid Mubarak</h2>
+<p>Nova Design AI • Nisar Studio</p>
+</div>
+<label>Frame Color</label><input type="color" value="#FFD700" onchange="document.getElementById('framePreview').style.borderColor=this.value">
+<button class="btn btn-green" onclick="alert('Saved! WhatsApp pe share karo')">⬇️ Save & Share WhatsApp</button>
+</div>
+
+<!-- INVOICE -->
+<div id="invoice" class="section">
+<h2>🧾 Digital Invoice - Add Page</h2>
+<label>Customer Name</label><input id="cName" placeholder="Ayesha Khan" value="Ayesha Khan">
+<label>Phone Number</label><input id="cPhone" placeholder="+92 300 1234567" value="+92 300 1234567">
+<label>Address</label><input id="cAddr" placeholder="Gulberg, Lahore" value="Gulberg, Lahore">
+<label>Product Name</label><input id="pName" value="10000mAh Power Bank">
+<label>Quantity</label><input type="number" id="qty" value="1" oninput="calc()">
+<label>Price (PKR)</label><input type="number" id="price" value="1899" oninput="calc()">
+<label>Discount (PKR)</label><input type="number" id="disc" value="0" oninput="calc()">
+<label>Payment Method</label>
+<select id="pay"><option>Cash on Delivery</option><option>JazzCash</option><option>Easypaisa</option><option>Bank Transfer</option></select>
+<h3>Total: <span id="total" style="color:#00e676">PKR 1,899</span></h3>
+<button class="btn" onclick="makeInvoice()">🧾 Invoice Banao</button>
+<button class="btn btn-green" style="margin-top:8px" onclick="sendWA()">📲 WhatsApp pe Bhejo</button>
+<div id="invPreview" class="preview" style="display:none"></div>
+</div>
+
+<!-- NOVA MART -->
+<div id="mart" class="section">
+<h2>🛍️ Nova Mart Products</h2>
+<div class="grid" id="martGrid"></div>
+</div>
+
+<!-- PRO -->
+<div id="pro" class="section">
+<div class="probox">
+<h2>👑 Nova Design AI - PRO</h2>
+<p style="font-size:13px;color:#ccc;margin:6px 0">100+ Premium Templates • No Watermark • All Frames Unlocked</p>
+<h3>PKR 499 / Month - PKR 999 / Year</h3><br>
+<button class="btn" style="background:#ff0000;margin-bottom:8px" onclick="payPro('JazzCash')">📱 JazzCash se Pay Karo</button>
+<button class="btn" style="background:#00a651" onclick="payPro('Easypaisa')">💚 Easypaisa se Pay Karo</button>
+<p style="font-size:11px;text-align:center;margin-top:8px">Pay ke baad screenshot WhatsApp pe bhejo, Pro ON ho jayega</p>
+</div>
+</div>
+
+<div class="bottom">
+<button class="active" onclick="show('home',this)">🏠 Home</button>
+<button onclick="show('templates',this)">🎨 Templates</button>
+<button onclick="show('frame',this)">🖼️ Frame</button>
+<button onclick="show('invoice',this)">🧾 Invoice</button>
+<button onclick="show('mart',this)">🛍️ Mart</button>
+</div>
+
+<script>
+const templates=[
+"Eid Mubarak - Gold Green","Eid Sale 50% OFF","YouTube Thumbnail - MY VLOG","CV Resume - Modern","Wedding Card - Urdu Shadi Card","Nova Mart - Product Ad","Business Visiting Card","Ramzan Offer 40% OFF","Instagram Story - Sale Alert","Facebook Post - Shop Opening","Facebook Cover - Business","TikTok Thumbnail - Viral","YouTube Banner - Channel Art","WhatsApp Status - Eid Offer","WhatsApp DP - Islamic","Reels Cover - Trending","Story Highlight Cover","Live Sale Announcement","Giveaway Post","Follow Us Post","Thank You Followers","New Video Alert","Viral Meme Template","Shop Banner - Grand Opening","Visiting Card - Urdu","Visiting Card - English","Sale Poster - 50% OFF","Discount Poster - Buy 1 Get 1","New Arrival Poster","Cash on Delivery Poster","Menu Card - Restaurant","Invoice - Simple","Quote Poster - Success","Quote Poster - Motivation","Brand Logo - Minimal","Brand Logo - Luxury","Packaging Label","Sticker - Price Tag","Eid Mubarak - Urdu Calligraphy","Ramzan Offer - Grocery","Ramzan Calendar","Jumma Mubarak Post","Pakistan Zindabad Poster","Mehndi Card - Yellow","Barat Invitation","Walima Card - Luxury","Nikkah Announcement","Birthday Card - Bacho","Dua Post - Umrah Mubarak","Hajj Mubarak Card","New Baby - Mubarak Ho","Result Mubarak - Pass","Teachers Day Post","Nova Mart - Smart Watch Sale","Nova Mart - Earbuds Offer","Nova Mart - Power Bank Ad","Nova Mart - Winter Collection","Nova Mart - Summer Sale","Nova Mart - Free Delivery","Nova Mart - Order on WhatsApp","Nova Mart - Customer Feedback","Nova Mart - Stock Clearance","Nova Mart - Limited Time Deal","Nova Mart - 11.11 Sale","Nova Mart - New Shop Banner","Nova Mart - Price Drop","Nova Mart - Thank You Order","CV Resume - Simple Urdu","School Assignment Cover","Presentation - Business","Presentation - Student","ID Card - School","ID Card - Office","Flyer - Tuition Classes","Flyer - Academy Admission","Exam Tips Post","Motivational Quote - Urdu","Motivational Quote - English","Video Intro - YouTube","Video Cover - Podcast","Reels Template - Shop Promo","TikTok Video - Before After","Thumbnail - Gaming","Eid Frame - Golden","Wedding Frame - Pink","Product Frame - Green"
+];
+const imgs=["https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400","https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=400","https://images.unsplash.com/photo-1611162617213-7d5b0d3a7d0d?w=400","https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400","https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400","https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=400","https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400","https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400","https://images.unsplash.com/photo-1521790797524-b2497295b8a0?w=400","https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400"];
+function renderTpl(list,el){
+ document.getElementById(el).innerHTML=list.map((t,i)=>`<div class="card"><img src="${imgs[i%imgs.length]}"><div class="info"><h3>${t}</h3><p>Nova Design AI • Free / Pro</p><button class="btn" onclick="useTpl('${t.replace(/'/g,"\\'")}' )">Use</button></div></div>`).join('');
+}
+renderTpl(templates.slice(0,10),'top10');
+renderTpl(templates,'allTpl');
+function filterTpl(){let q=document.getElementById('search').value.toLowerCase();renderTpl(templates.filter(t=>t.toLowerCase().includes(q)),'allTpl')}
+function useTpl(t){show('frame',null);document.getElementById('frameText').value=t;updateFrame();alert(t+" khul gaya!")}
+function show(id,btn){
+ document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+ if(btn) btn.classList.add('active');
+ window.scrollTo(0,0);
+}
+function loadPhoto(e){let r=new FileReader();r.onload=()=>document.getElementById('userPhoto').src=r.result;r.readAsDataURL(e.target.files[0])}
+function changeFrame(){let f=document.getElementById('frameType').value;let p=document.getElementById('framePreview');p.className='frame-box '+f}
+function updateFrame(){document.getElementById('frameTextShow').innerText=document.getElementById('frameText').value}
+function calc(){
+ let q=+document.getElementById('qty').value||1;
+ let pr=+document.getElementById('price').value||0;
+ let d=+document.getElementById('disc').value||0;
+ let tot=q*pr-d;
+ document.getElementById('total').innerText='PKR '+tot.toLocaleString();
+ return tot;
+}
+function makeInvoice(){
+ let tot=calc();
+ let txt=`NOVA MART - by Nisar Studio\nInvoice #001\n----------------\nCustomer: ${document.getElementById('cName').value}\nPhone: ${document.getElementById('cPhone').value}\nAddress: ${document.getElementById('cAddr').value}\nProduct: ${document.getElementById('pName').value}\nQty: ${document.getElementById('qty').value}\nPrice: PKR ${Number(document.getElementById('price').value).toLocaleString()}\nDiscount: PKR ${Number(document.getElementById('disc').value).toLocaleString()}\nTotal: PKR ${tot.toLocaleString()}\nPayment: ${document.getElementById('pay').value}`;
+ let p=document.getElementById('invPreview');p.style.display='block';p.innerText=txt;
+}
+function sendWA(){makeInvoice();let msg=encodeURIComponent(document.getElementById('invPreview').innerText);window.open('https://wa.me/923001234567?text='+msg)}
+function payPro(method){
+  let num = prompt(method + " Number Likho (03235052148):");
+  if(!num) return;
+  alert(method + " pe PKR 499 bhejo:\n\nNumber: 03235052148\nName: Nisar Studio\n\nPhir screenshot WhatsApp pe bhejo!");
+  window.open('https://wa.me/923235052148?text='+encodeURIComponent('Mujhe PRO chahiye - '+method+' - Mera Number: '+num+' - Payment Screenshot bhej raha hun'));
+}
+const products=[
+{name:"10000mAh Power Bank",price:1899,old:3150,off:"40% OFF",img:"https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400"},
+{name:"Smart Watch",price:2499,old:3999,off:"30% OFF",img:"https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400"},
+{name:"Earbuds Pro",price:1499,old:2499,off:"40% OFF",img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
+{name:"Fast Charger 25W",price:999,old:1499,off:"33% OFF",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400"},
+{name:"LED Lamp",price:1299,old:1999,off:"35% OFF",img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400"},
+{name:"Bluetooth Speaker",price:2999,old:4999,off:"40% OFF",img:"https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400"}
+];
+document.getElementById('martGrid').innerHTML=products.map(p=>`<div class="card"><img src="${p.img}"><div class="info"><span class="badge">${p.off}</span><h3 style="margin-top:6px">${p.name}</h3><p>Original Price <span class="old">PKR ${p.old.toLocaleString()}</span></p><div style="display:flex;justify-content:space-between;align-items:center"><span class="price">PKR ${p.price.toLocaleString()}</span><button class="btn" onclick="alert('${p.name} selected')" style="width:auto;padding:8px 14px">Order</button></div></div></div>`).join('');
+</script>
+</body>
+</html>
