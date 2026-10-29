@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nova Design AI Dashboard</title>
+  <title>Nova Design AI Admin Dashboard</title>
   <style>
     :root {
-      --bg: #0b1020;
-      --bg-2: #111827;
-      --panel: #121a2b;
-      --panel-2: #1a2337;
-      --panel-3: #1f2a3d;
+      --bg: #0a1020;
+      --bg-soft: #111827;
+      --panel: rgba(17, 24, 39, 0.9);
+      --panel-strong: #121d2d;
+      --panel-alt: #162336;
       --line: rgba(148, 163, 184, 0.18);
       --text: #edf2ff;
-      --muted: #9aa7bd;
+      --muted: #a7b2c9;
       --primary: #7c5cff;
       --primary-2: #00d4ff;
       --success: #22c55e;
       --warning: #fbbf24;
       --danger: #f87171;
       --pink: #ff5ec4;
-      --shadow: 0 20px 45px rgba(15, 23, 42, 0.45);
+      --shadow: 0 24px 48px rgba(15, 23, 42, 0.45);
     }
 
     * { box-sizing: border-box; }
@@ -28,44 +28,42 @@
     html, body {
       margin: 0;
       min-height: 100%;
-      background: linear-gradient(180deg, #0b1020 0%, #111827 100%);
+      background: linear-gradient(180deg, #0a1020 0%, #111827 100%);
       color: var(--text);
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
-      padding: 20px;
+      padding: 18px;
     }
 
     .app {
-      max-width: 1440px;
+      max-width: 1480px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 260px 1fr;
-      gap: 22px;
-      min-height: calc(100vh - 40px);
+      gap: 20px;
+      min-height: calc(100vh - 36px);
     }
 
     .sidebar {
-      background: rgba(17, 24, 39, 0.9);
+      background: rgba(17, 24, 39, 0.93);
       border: 1px solid var(--line);
-      border-radius: 26px;
+      border-radius: 24px;
       box-shadow: var(--shadow);
-      padding: 22px 18px;
+      padding: 18px 14px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.25s ease, opacity 0.25s ease;
-      position: relative;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 8px 8px 18px;
+      padding: 8px 10px 18px;
       border-bottom: 1px solid var(--line);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .brand-mark {
@@ -80,14 +78,14 @@
     }
 
     .brand h1 {
-      font-size: 1.1rem;
       margin: 0;
+      font-size: 1.06rem;
     }
 
     .brand p {
-      margin: 0;
-      font-size: 0.72rem;
+      margin: 4px 0 0;
       color: var(--muted);
+      font-size: 0.72rem;
     }
 
     .nav {
@@ -96,21 +94,21 @@
     }
 
     .nav-item {
-      color: var(--text);
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 14px;
-      padding: 12px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-weight: 600;
+      gap: 10px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 12px 12px;
       cursor: pointer;
       transition: 0.2s ease;
     }
 
     .nav-item:hover, .nav-item.active {
-      background: linear-gradient(90deg, rgba(124,92,255,0.18), rgba(0,212,255,0.1));
+      background: linear-gradient(90deg, rgba(124,92,255,0.18), rgba(0,212,255,0.08));
       border-color: rgba(124, 92, 255, 0.35);
     }
 
@@ -124,27 +122,27 @@
       width: 30px;
       height: 30px;
       border-radius: 10px;
-      background: rgba(255,255,255,0.06);
       display: grid;
       place-items: center;
+      background: rgba(255,255,255,0.05);
       font-size: 0.9rem;
     }
 
     .nav-badge {
-      background: rgba(34, 197, 94, 0.16);
-      color: #8bf0b1;
-      border: 1px solid rgba(34, 197, 94, 0.35);
       border-radius: 999px;
-      font-size: 0.68rem;
       padding: 4px 8px;
+      font-size: 0.7rem;
+      background: rgba(34,197,94,0.12);
+      color: #9ef0b5;
+      border: 1px solid rgba(34,197,94,0.35);
     }
 
     .upgrade-card {
-      margin-top: 22px;
-      padding: 18px 16px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(124,92,255,0.22), rgba(0,212,255,0.12));
+      background: linear-gradient(135deg, rgba(124,92,255,0.24), rgba(0,212,255,0.14));
       border: 1px solid rgba(124, 92, 255, 0.4);
+      border-radius: 18px;
+      padding: 16px 14px;
+      margin-top: 18px;
     }
 
     .upgrade-card h3 {
@@ -153,24 +151,23 @@
     }
 
     .upgrade-card p {
-      margin: 0 0 14px;
+      margin: 0 0 12px;
       color: var(--muted);
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       line-height: 1.5;
     }
 
     .button {
-      width: 100%;
       border: none;
       border-radius: 12px;
-      padding: 12px 14px;
-      cursor: pointer;
+      padding: 11px 14px;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      cursor: pointer;
       transition: 0.2s ease;
     }
 
     .button.primary {
+      width: 100%;
       background: linear-gradient(90deg, var(--primary), var(--primary-2));
       color: white;
     }
@@ -184,30 +181,33 @@
     .main {
       display: flex;
       flex-direction: column;
-      gap: 22px;
+      gap: 18px;
+    }
+
+    .workspace {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 18px;
     }
 
     .topbar {
-      background: rgba(17, 24, 39, 0.88);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 16px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
-      box-shadow: var(--shadow);
+      gap: 16px;
+      margin-bottom: 18px;
     }
 
     .mobile-menu {
       display: none;
       width: 42px;
       height: 42px;
-      border-radius: 12px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.03);
       color: var(--text);
-      font-size: 1.2rem;
+      border-radius: 12px;
       cursor: pointer;
     }
 
@@ -215,12 +215,12 @@
       flex: 1;
       display: flex;
       align-items: center;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px 14px;
-      color: var(--muted);
       gap: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      padding: 12px 14px;
+      border-radius: 14px;
+      color: var(--muted);
     }
 
     .search input {
@@ -229,53 +229,54 @@
       outline: none;
       color: var(--text);
       width: 100%;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
     }
 
     .top-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .circle-btn {
       width: 42px;
       height: 42px;
       border-radius: 12px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
       display: grid;
       place-items: center;
-      color: var(--text);
-      font-size: 1rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      cursor: pointer;
     }
 
     .avatar {
       width: 42px;
       height: 42px;
       border-radius: 14px;
-      background: linear-gradient(135deg, #fbbf24, #f97316);
       display: grid;
       place-items: center;
-      font-weight: 700;
+      background: linear-gradient(135deg, #fbbf24, #f97316);
       color: #1f2937;
+      font-weight: 700;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 18px;
+      margin-bottom: 18px;
     }
 
     .card {
-      background: rgba(17, 24, 39, 0.92);
+      background: rgba(255,255,255,0.02);
       border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 18px 18px 16px;
+      border-radius: 18px;
+      overflow: hidden;
       box-shadow: var(--shadow);
     }
 
     .stat {
+      padding: 18px 18px 16px;
       position: relative;
       overflow: hidden;
     }
@@ -283,82 +284,93 @@
     .stat::after {
       content: "";
       position: absolute;
-      right: -12px;
-      top: -12px;
-      width: 90px;
-      height: 90px;
+      right: -20px;
+      top: -20px;
+      width: 110px;
+      height: 110px;
       background: radial-gradient(circle, rgba(124,92,255,0.18), transparent 65%);
       pointer-events: none;
     }
 
     .stat-top {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .tiny-badge {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      font-size: 1rem;
-      background: rgba(255,255,255,0.05);
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
     }
 
     .stat label {
       display: block;
       color: var(--muted);
-      font-size: 0.8rem;
-      margin-bottom: 6px;
+      font-size: 0.76rem;
+      margin-bottom: 8px;
     }
 
     .stat strong {
-      font-size: clamp(1.5rem, 2vw, 2rem);
+      font-size: clamp(1.5rem, 2vw, 2.1rem);
       letter-spacing: -0.04em;
     }
 
+    .tiny-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+    }
+
     .trend {
-      margin-top: 12px;
+      position: relative;
+      z-index: 1;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(34,197,94,0.12);
-      color: #8cf0af;
-      border: 1px solid rgba(34,197,94,0.25);
+      padding: 6px 9px;
       border-radius: 999px;
+      background: rgba(34,197,94,0.12);
+      color: #9ef0b5;
+      border: 1px solid rgba(34,197,94,0.28);
       font-size: 0.72rem;
-      padding: 6px 8px;
+      font-weight: 700;
     }
 
-    .grid-layout {
+    .trend.down {
+      background: rgba(248,113,113,0.08);
+      color: #ffb0b0;
+      border-color: rgba(248,113,113,0.28);
+    }
+
+    .panel-grid {
       display: grid;
-      grid-template-columns: 1.5fr 0.9fr;
-      gap: 22px;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 18px;
     }
 
     .chart-panel {
-      padding: 20px;
+      padding: 18px 18px 14px;
     }
 
     .panel-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 18px;
       gap: 12px;
+      margin-bottom: 14px;
     }
 
     .panel-head h3 {
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1.08rem;
     }
 
     .segmented {
       display: inline-flex;
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.04);
       border: 1px solid var(--line);
       border-radius: 10px;
       padding: 4px;
@@ -372,7 +384,8 @@
       border-radius: 8px;
       padding: 7px 10px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 0.75rem;
     }
 
     .segmented button.active {
@@ -380,102 +393,105 @@
       color: var(--text);
     }
 
+    .chart-wrap {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
     .chart {
-      height: 270px;
+      height: 260px;
       display: flex;
       align-items: end;
       justify-content: space-between;
       gap: 12px;
-      padding-top: 20px;
-      border-bottom: 1px solid var(--line);
       border-left: 1px solid var(--line);
-      padding-left: 14px;
-      padding-right: 14px;
+      border-bottom: 1px solid var(--line);
+      padding: 0 12px 0 12px;
+      position: relative;
+    }
+
+    .chart::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 0 0;
+      background: linear-gradient(180deg, rgba(124,92,255,0.04), transparent 65%);
+      pointer-events: none;
     }
 
     .bar-wrap {
       flex: 1;
+      position: relative;
       height: 100%;
       display: flex;
       align-items: end;
       justify-content: center;
-      position: relative;
+      z-index: 1;
     }
 
     .bar {
       width: 100%;
-      max-width: 40px;
+      max-width: 36px;
       background: linear-gradient(180deg, var(--primary-2), var(--primary));
       border-radius: 10px 10px 0 0;
-      box-shadow: 0 18px 28px rgba(124,92,255,0.25);
-      position: relative;
+      box-shadow: 0 18px 30px rgba(124,92,255,0.2);
     }
 
-    .bar:nth-child(odd) {
+    .bar.alt {
       background: linear-gradient(180deg, #ffb86d, #ff7a59);
     }
 
-    .bar-labels {
+    .chart-labels {
       display: flex;
       justify-content: space-between;
-      padding: 10px 14px 0;
       color: var(--muted);
-      font-size: 0.76rem;
-    }
-
-    .side-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
+      font-size: 0.75rem;
+      margin-top: 8px;
+      padding: 0 12px;
     }
 
     .donut-wrap {
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      gap: 8px;
-      min-height: 210px;
+      min-height: 220px;
+      margin-top: 10px;
     }
 
     .donut {
-      width: 130px;
-      height: 130px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
-      position: relative;
       background: conic-gradient(var(--primary) 0 68%, rgba(255,255,255,0.05) 68% 100%);
+      position: relative;
       display: grid;
       place-items: center;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
     }
 
     .donut::before {
       content: "";
-      width: 86px;
-      height: 86px;
-      background: var(--panel-2);
-      border-radius: 50%;
       position: absolute;
+      width: 94px;
+      height: 94px;
+      background: var(--panel-strong);
+      border-radius: 50%;
     }
 
     .donut-value {
       position: relative;
       z-index: 1;
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.55rem;
+      font-weight: 800;
     }
 
     .legend {
       display: grid;
       gap: 10px;
-      margin-top: 10px;
+      margin-top: 4px;
     }
 
     .legend-row {
       display: flex;
       justify-content: space-between;
-      gap: 8px;
-      align-items: center;
       color: var(--muted);
       font-size: 0.84rem;
     }
@@ -493,10 +509,29 @@
       display: inline-block;
     }
 
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .mini-action {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 10px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text);
+    }
+
     .bottom-grid {
       display: grid;
-      grid-template-columns: 1.4fr 0.9fr;
-      gap: 22px;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 18px;
+      margin-top: 18px;
     }
 
     .table-panel table {
@@ -507,44 +542,133 @@
 
     .table-panel th,
     .table-panel td {
-      border-bottom: 1px solid var(--line);
-      padding: 12px 10px;
       text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
     }
 
     .table-panel th {
       color: var(--muted);
-      font-weight: 600;
-      font-size: 0.74rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      font-size: 0.72rem;
+      font-weight: 700;
     }
 
     .pill {
       display: inline-flex;
       align-items: center;
       border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 0.74rem;
+      padding: 5px 9px;
+      font-size: 0.72rem;
       font-weight: 700;
+      border: 1px solid transparent;
     }
 
     .pill.success {
       background: rgba(34,197,94,0.12);
-      color: #90f7b3;
-      border: 1px solid rgba(34,197,94,0.25);
+      color: #9ef0b5;
+      border-color: rgba(34,197,94,0.28);
     }
 
     .pill.warning {
       background: rgba(251,191,36,0.12);
       color: #ffd96a;
-      border: 1px solid rgba(251,191,36,0.25);
+      border-color: rgba(251,191,36,0.28);
     }
 
     .pill.danger {
       background: rgba(248,113,113,0.12);
       color: #ffb0b0;
-      border: 1px solid rgba(248,113,113,0.25);
+      border-color: rgba(248,113,113,0.28);
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .showcase-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .showcase-thumb {
+      height: 170px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .showcase-thumb::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15,23,42,0.08), rgba(15,23,42,0.58));
+    }
+
+    .showcase-body {
+      padding: 14px 14px 16px;
+      position: relative;
+    }
+
+    .tag {
+      position: absolute;
+      top: -12px;
+      right: 12px;
+      background: rgba(124,92,255,0.16);
+      border: 1px solid rgba(124,92,255,0.26);
+      border-radius: 999px;
+      color: #d8d0ff;
+      padding: 5px 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .showcase-body h4 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .showcase-body p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .showcase-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .price {
+      font-weight: 800;
+      font-size: 1rem;
+      color: #a8ffcc;
+    }
+
+    .mini-btn {
+      background: rgba(124,92,255,0.16);
+      border: 1px solid rgba(124,92,255,0.28);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: 700;
     }
 
     .template-list {
@@ -555,13 +679,13 @@
 
     .template-item {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
-      padding: 10px 12px;
       background: rgba(255,255,255,0.02);
       border: 1px solid var(--line);
       border-radius: 14px;
+      padding: 10px 12px;
     }
 
     .template-meta {
@@ -574,9 +698,9 @@
       width: 44px;
       height: 44px;
       border-radius: 12px;
-      background: linear-gradient(135deg, rgba(124,92,255,0.22), rgba(0,212,255,0.2));
       display: grid;
       place-items: center;
+      background: linear-gradient(135deg, rgba(124,92,255,0.18), rgba(0,212,255,0.18));
       font-size: 1.2rem;
     }
 
@@ -587,127 +711,17 @@
 
     .template-sub {
       color: var(--muted);
-      font-size: 0.76rem;
+      font-size: 0.74rem;
     }
 
     .template-score {
-      font-weight: 700;
+      font-weight: 800;
       color: #a8ffcc;
-    }
-
-    .quick-actions {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .mini-action {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px;
-      text-align: center;
-      color: var(--text);
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .showcase {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 22px;
-    }
-
-    .template-gallery, .product-gallery {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 10px;
-    }
-
-    .showcase-card {
-      background: rgba(17, 24, 39, 0.92);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .showcase-thumb {
-      height: 160px;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-
-    .showcase-thumb::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.1), rgba(15, 23, 42, 0.6));
-    }
-
-    .showcase-body {
-      padding: 14px 14px 16px;
-      position: relative;
-    }
-
-    .showcase-tag {
-      position: absolute;
-      right: 12px;
-      top: -12px;
-      background: rgba(124, 92, 255, 0.18);
-      border: 1px solid rgba(124, 92, 255, 0.3);
-      color: #d7d0ff;
-      padding: 5px 8px;
-      border-radius: 999px;
-      font-size: 0.68rem;
-      font-weight: 700;
-    }
-
-    .showcase-body h4 {
-      margin: 0 0 7px;
-      font-size: 1rem;
-    }
-
-    .showcase-body p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      line-height: 1.5;
-    }
-
-    .showcase-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .price {
-      font-weight: 700;
-      color: #9ffccc;
-      font-size: 1rem;
-    }
-
-    .mini-btn {
-      border: 1px solid rgba(124, 92, 255, 0.3);
-      background: rgba(124, 92, 255, 0.12);
-      color: var(--text);
-      padding: 8px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
     }
 
     @media (max-width: 1100px) {
       .app {
         grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        padding-bottom: 12px;
       }
     }
 
@@ -717,11 +731,10 @@
       }
 
       .stats,
-      .grid-layout,
+      .panel-grid,
       .bottom-grid,
       .showcase,
-      .product-gallery,
-      .template-gallery {
+      .gallery-grid {
         grid-template-columns: 1fr;
       }
 
@@ -734,10 +747,6 @@
         width: 100%;
       }
 
-      .logo-wrap {
-        display: none;
-      }
-
       .mobile-menu {
         display: inline-grid;
         place-items: center;
@@ -745,24 +754,18 @@
 
       .sidebar {
         position: fixed;
-        top: 12px;
-        left: 12px;
-        right: 12px;
-        bottom: 12px;
+        inset: 12px;
         z-index: 100;
         transform: translateY(-120%);
         opacity: 0;
         pointer-events: none;
+        transition: 0.25s ease;
       }
 
       .sidebar.open {
         transform: translateY(0);
         opacity: 1;
         pointer-events: auto;
-      }
-
-      .quick-actions {
-        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -828,100 +831,101 @@
     </aside>
 
     <main class="main">
-      <header class="topbar">
-        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle menu">☰</button>
+      <div class="workspace">
+        <header class="topbar">
+          <button class="mobile-menu" id="mobileMenu">☰</button>
 
-        <div class="search">
-          <span>🔎</span>
-          <input type="text" value="Search templates, invoices, products..." aria-label="Search" />
-        </div>
+          <div class="search">
+            <span>🔎</span>
+            <input type="text" value="Search templates, orders, products..." aria-label="Search" />
+          </div>
 
-        <div class="top-actions">
-          <div class="circle-btn">🔔</div>
-          <div class="circle-btn">⚙️</div>
-          <div class="avatar">NS</div>
-        </div>
-      </header>
+          <div class="top-actions">
+            <div class="circle-btn">🔔</div>
+            <div class="circle-btn">⚙️</div>
+            <div class="avatar">NS</div>
+          </div>
+        </header>
 
-      <section class="stats">
-        <div class="card stat">
-          <div class="stat-top">
-            <div>
-              <label>Total Sales</label>
-              <strong>PKR 1.28M</strong>
+        <section class="stats">
+          <div class="card stat">
+            <div class="stat-top">
+              <div>
+                <label>Total Sales</label>
+                <strong>PKR 1.28M</strong>
+              </div>
+              <div class="tiny-badge">💰</div>
             </div>
-            <div class="tiny-badge">💰</div>
+            <div class="trend">▲ 18.4% this month</div>
           </div>
-          <div class="trend">▲ 18.4% this month</div>
-        </div>
 
-        <div class="card stat">
-          <div class="stat-top">
-            <div>
-              <label>Templates Used</label>
-              <strong>12,480</strong>
+          <div class="card stat">
+            <div class="stat-top">
+              <div>
+                <label>Templates Used</label>
+                <strong>12,480</strong>
+              </div>
+              <div class="tiny-badge">🎨</div>
             </div>
-            <div class="tiny-badge">🎨</div>
+            <div class="trend">▲ 9.6% weekly</div>
           </div>
-          <div class="trend">▲ 9.6% weekly</div>
-        </div>
 
-        <div class="card stat">
-          <div class="stat-top">
-            <div>
-              <label>Orders</label>
-              <strong>1,982</strong>
+          <div class="card stat">
+            <div class="stat-top">
+              <div>
+                <label>Orders</label>
+                <strong>1,982</strong>
+              </div>
+              <div class="tiny-badge">🛒</div>
             </div>
-            <div class="tiny-badge">🛒</div>
+            <div class="trend">▲ 12.1% growth</div>
           </div>
-          <div class="trend">▲ 12.1% growth</div>
-        </div>
 
-        <div class="card stat">
-          <div class="stat-top">
-            <div>
-              <label>Conversion</label>
-              <strong>6.8%</strong>
+          <div class="card stat">
+            <div class="stat-top">
+              <div>
+                <label>Conversion</label>
+                <strong>6.8%</strong>
+              </div>
+              <div class="tiny-badge">📈</div>
             </div>
-            <div class="tiny-badge">📈</div>
+            <div class="trend down">▼ 1.1% last week</div>
           </div>
-          <div class="trend">▼ 1.1% last week</div>
-        </div>
-      </section>
+        </section>
 
-      <section class="grid-layout">
-        <div class="card chart-panel">
-          <div class="panel-head">
-            <h3>Performance Overview</h3>
-            <div class="segmented">
-              <button class="active">7D</button>
-              <button>30D</button>
-              <button>90D</button>
+        <section class="panel-grid">
+          <div class="card chart-panel">
+            <div class="panel-head">
+              <h3>Performance Overview</h3>
+              <div class="segmented">
+                <button class="active">7D</button>
+                <button>30D</button>
+                <button>90D</button>
+              </div>
+            </div>
+
+            <div class="chart-wrap">
+              <div class="chart" aria-label="Sales chart">
+                <div class="bar-wrap"><div class="bar" style="height: 32%"></div></div>
+                <div class="bar-wrap"><div class="bar alt" style="height: 42%"></div></div>
+                <div class="bar-wrap"><div class="bar" style="height: 58%"></div></div>
+                <div class="bar-wrap"><div class="bar alt" style="height: 49%"></div></div>
+                <div class="bar-wrap"><div class="bar" style="height: 66%"></div></div>
+                <div class="bar-wrap"><div class="bar alt" style="height: 76%"></div></div>
+                <div class="bar-wrap"><div class="bar" style="height: 84%"></div></div>
+              </div>
+              <div class="chart-labels">
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+                <span>Sun</span>
+              </div>
             </div>
           </div>
 
-          <div class="chart" aria-label="Performance chart">
-            <div class="bar-wrap"><div class="bar" style="height: 32%"></div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 42%"></div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 58%"></div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 49%"></div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 66%"></div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 76%"></div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 84%"></div></div>
-          </div>
-
-          <div class="bar-labels">
-            <span>Mon</span>
-            <span>Tue</span>
-            <span>Wed</span>
-            <span>Thu</span>
-            <span>Fri</span>
-            <span>Sat</span>
-            <span>Sun</span>
-          </div>
-        </div>
-
-        <div class="side-panel">
           <div class="card chart-panel">
             <div class="panel-head">
               <h3>Goal Progress</h3>
@@ -942,179 +946,167 @@
               </div>
             </div>
           </div>
+        </section>
+
+        <section class="showcase">
+          <div class="card chart-panel">
+            <div class="panel-head">
+              <h3>Top Templates</h3>
+              <button class="button secondary" style="width:auto; padding:9px 12px;">View all</button>
+            </div>
+
+            <div class="gallery-grid">
+              <article class="showcase-card">
+                <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80');"></div>
+                <div class="showcase-body">
+                  <span class="tag">Top Rated</span>
+                  <h4>Eid Sale Flyer</h4>
+                  <p>Premium promotional template optimized for social ads and product pages.</p>
+                  <div class="showcase-footer">
+                    <span class="price">93%</span>
+                    <button class="mini-btn">Use</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="showcase-card">
+                <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80');"></div>
+                <div class="showcase-body">
+                  <span class="tag">New</span>
+                  <h4>Wedding Card</h4>
+                  <p>Elegant invitation design with luxury wedding styling and Urdu support.</p>
+                  <div class="showcase-footer">
+                    <span class="price">89%</span>
+                    <button class="mini-btn">Use</button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
 
           <div class="card chart-panel">
             <div class="panel-head">
-              <h3>Quick Actions</h3>
-            </div>
-            <div class="quick-actions">
-              <div class="mini-action">+ New Design</div>
-              <div class="mini-action">📦 Orders</div>
-              <div class="mini-action">📄 Invoice</div>
-              <div class="mini-action">🧩 Frame</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="showcase">
-        <div class="card chart-panel">
-          <div class="panel-head">
-            <h3>Top Templates</h3>
-            <button class="button secondary" style="width:auto; padding:9px 12px;">View all</button>
-          </div>
-
-          <div class="template-gallery">
-            <article class="showcase-card">
-              <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80');"></div>
-              <div class="showcase-body">
-                <span class="showcase-tag">Top Rated</span>
-                <h4>Eid Sale Flyer</h4>
-                <p>Premium promotional template optimized for social ads and product pages.</p>
-                <div class="showcase-footer">
-                  <span class="price">93%</span>
-                  <button class="mini-btn">Use</button>
-                </div>
-              </div>
-            </article>
-
-            <article class="showcase-card">
-              <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80');"></div>
-              <div class="showcase-body">
-                <span class="showcase-tag">New</span>
-                <h4>Wedding Card</h4>
-                <p>Elegant invitation design with luxury wedding styling and Urdu support.</p>
-                <div class="showcase-footer">
-                  <span class="price">89%</span>
-                  <button class="mini-btn">Use</button>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="card chart-panel">
-          <div class="panel-head">
-            <h3>Best Sellers</h3>
-            <button class="button secondary" style="width:auto; padding:9px 12px;">Explore</button>
-          </div>
-
-          <div class="product-gallery">
-            <article class="showcase-card">
-              <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=900&q=80');"></div>
-              <div class="showcase-body">
-                <span class="showcase-tag">Fast Move</span>
-                <h4>Power Bank</h4>
-                <p>10000mAh wireless device with fast charge and compact body.</p>
-                <div class="showcase-footer">
-                  <span class="price">PKR 1,899</span>
-                  <button class="mini-btn">Order</button>
-                </div>
-              </div>
-            </article>
-
-            <article class="showcase-card">
-              <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=900&q=80');"></div>
-              <div class="showcase-body">
-                <span class="showcase-tag">Popular</span>
-                <h4>Smart Watch</h4>
-                <p>Fitness tracking, notifications, and premium design for daily use.</p>
-                <div class="showcase-footer">
-                  <span class="price">PKR 2,499</span>
-                  <button class="mini-btn">Order</button>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="bottom-grid">
-        <div class="card table-panel chart-panel">
-          <div class="panel-head">
-            <h3>Recent Orders</h3>
-            <button class="button secondary" style="width:auto; padding:9px 12px;">Export</button>
-          </div>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Customer</th>
-                <th>Product</th>
-                <th>Value</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Ayesha Khan</td>
-                <td>Power Bank</td>
-                <td>PKR 1,899</td>
-                <td><span class="pill success">Paid</span></td>
-              </tr>
-              <tr>
-                <td>Hassan Ali</td>
-                <td>Smart Watch</td>
-                <td>PKR 2,499</td>
-                <td><span class="pill warning">Pending</span></td>
-              </tr>
-              <tr>
-                <td>Zainab Noor</td>
-                <td>Wedding Card</td>
-                <td>PKR 999</td>
-                <td><span class="pill success">Completed</span></td>
-              </tr>
-              <tr>
-                <td>Usman Raza</td>
-                <td>Business Card</td>
-                <td>PKR 850</td>
-                <td><span class="pill danger">Refund</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="card chart-panel">
-          <div class="panel-head">
-            <h3>Top Templates</h3>
-          </div>
-
-          <div class="template-list">
-            <div class="template-item">
-              <div class="template-meta">
-                <div class="mini-thumb">📱</div>
-                <div>
-                  <div class="template-name">Eid Sale Promo</div>
-                  <div class="template-sub">Campaign Design</div>
-                </div>
-              </div>
-              <div class="template-score">93%</div>
+              <h3>Best Sellers</h3>
+              <button class="button secondary" style="width:auto; padding:9px 12px;">Explore</button>
             </div>
 
-            <div class="template-item">
-              <div class="template-meta">
-                <div class="mini-thumb">💍</div>
-                <div>
-                  <div class="template-name">Wedding Card</div>
-                  <div class="template-sub">Premium Layout</div>
+            <div class="gallery-grid">
+              <article class="showcase-card">
+                <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=900&q=80');"></div>
+                <div class="showcase-body">
+                  <span class="tag">Fast Move</span>
+                  <h4>Power Bank</h4>
+                  <p>10000mAh wireless device with fast charge and compact body.</p>
+                  <div class="showcase-footer">
+                    <span class="price">PKR 1,899</span>
+                    <button class="mini-btn">Order</button>
+                  </div>
                 </div>
-              </div>
-              <div class="template-score">89%</div>
-            </div>
+              </article>
 
-            <div class="template-item">
-              <div class="template-meta">
-                <div class="mini-thumb">🛍️</div>
-                <div>
-                  <div class="template-name">Nova Mart Ad</div>
-                  <div class="template-sub">Store Promo</div>
+              <article class="showcase-card">
+                <div class="showcase-thumb" style="background-image:url('https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=900&q=80');"></div>
+                <div class="showcase-body">
+                  <span class="tag">Popular</span>
+                  <h4>Smart Watch</h4>
+                  <p>Fitness tracking, notifications, and premium design for daily use.</p>
+                  <div class="showcase-footer">
+                    <span class="price">PKR 2,499</span>
+                    <button class="mini-btn">Order</button>
+                  </div>
                 </div>
-              </div>
-              <div class="template-score">86%</div>
+              </article>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section class="bottom-grid">
+          <div class="card chart-panel table-panel">
+            <div class="panel-head">
+              <h3>Recent Orders</h3>
+              <button class="button secondary" style="width:auto; padding:9px 12px;">Export</button>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Product</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ayesha Khan</td>
+                  <td>Power Bank</td>
+                  <td>PKR 1,899</td>
+                  <td><span class="pill success">Paid</span></td>
+                </tr>
+                <tr>
+                  <td>Hassan Ali</td>
+                  <td>Smart Watch</td>
+                  <td>PKR 2,499</td>
+                  <td><span class="pill warning">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Zainab Noor</td>
+                  <td>Wedding Card</td>
+                  <td>PKR 999</td>
+                  <td><span class="pill success">Completed</span></td>
+                </tr>
+                <tr>
+                  <td>Usman Raza</td>
+                  <td>Business Card</td>
+                  <td>PKR 850</td>
+                  <td><span class="pill danger">Refund</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card chart-panel">
+            <div class="panel-head">
+              <h3>Top Templates</h3>
+            </div>
+
+            <div class="template-list">
+              <div class="template-item">
+                <div class="template-meta">
+                  <div class="mini-thumb">📱</div>
+                  <div>
+                    <div class="template-name">Eid Sale Promo</div>
+                    <div class="template-sub">Campaign Design</div>
+                  </div>
+                </div>
+                <div class="template-score">93%</div>
+              </div>
+
+              <div class="template-item">
+                <div class="template-meta">
+                  <div class="mini-thumb">💍</div>
+                  <div>
+                    <div class="template-name">Wedding Card</div>
+                    <div class="template-sub">Premium Layout</div>
+                  </div>
+                </div>
+                <div class="template-score">89%</div>
+              </div>
+
+              <div class="template-item">
+                <div class="template-meta">
+                  <div class="mini-thumb">🛍️</div>
+                  <div>
+                    <div class="template-name">Nova Mart Ad</div>
+                    <div class="template-sub">Store Promo</div>
+                  </div>
+                </div>
+                <div class="template-score">86%</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   </div>
 
@@ -1128,8 +1120,8 @@
       });
 
       document.addEventListener('click', (event) => {
-        const isInside = sidebar.contains(event.target) || mobileMenu.contains(event.target);
-        if (window.innerWidth <= 760 && !isInside) {
+        const isTargetInside = sidebar.contains(event.target) || mobileMenu.contains(event.target);
+        if (window.innerWidth <= 760 && !isTargetInside) {
           sidebar.classList.remove('open');
         }
       });
